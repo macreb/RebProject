@@ -5,9 +5,7 @@ import { Link, NavLink } from "react-router-dom";
 const Footer = () => (
     <Wrapper>
         <Link to="/">
-            <Logo>
                 <h1>Play again?</h1>
-            </Logo>
         </Link>
     </Wrapper>
     );

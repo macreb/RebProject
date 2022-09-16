@@ -5,7 +5,7 @@
 
 const { MongoClient } = require("mongodb");
 
-require("dotenv").config();
+// require("dotenv").config();
 const { MONGO_URI } = process.env;
 
 const options = {
@@ -165,26 +165,26 @@ const myPostFunction = async (req, res) => {
 
 // edits an existing result for logged in user
 const myPatchFunction = async (req, res) => {
-    const client = new MongoClient(MONGO_URI, options);
+//     const client = new MongoClient(MONGO_URI, options);
 
-    const _id = req.body._id;
-    const destination = req.body.destination;
-    const query = { _id }
-    const newDestination = { $set: { ...req.body } };
+//     const _id = req.body._id;
+//     const destination = req.body.destination;
+//     const query = { _id }
+//     const newDestination = { $set: { ...req.body } };
 
-    try {
-        await client.connect();
-        const db = client.db("finalProject");
+//     try {
+//         await client.connect();
+//         const db = client.db("finalProject");
         
-        const retrievedResult = await db.collection("results").findOne({ _id });
+//         const retrievedResult = await db.collection("results").findOne({ _id });
 
-        let destinationChanged = retrievedResult.destination != destination;
+//         let destinationChanged = retrievedResult.destination != destination;
 
-        // if the newly entered destination does not match the old one, update the database with new destination
-        if (destinationChanged) {
-            const updateDestination = await db.collection("results").updateOne({ _id }, { $set: { ...destination}});
-        }
-}
+//         // if the newly entered destination does not match the old one, update the database with new destination
+//         if (destinationChanged) {
+//             const updateDestination = await db.collection("results").updateOne({ _id }, { $set: { ...destination}});
+//         }
+// }
 //     const updatedDestination = await db  
 //         .collection("results")
 //         .updateOne(reservationQuery, newDestination);

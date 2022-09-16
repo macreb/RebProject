@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { NavLink, Link } from "react-router-dom";
 
-import slingairLogo from "../assets/logo_text.png";
-
 
 const Header = () => {
     
@@ -12,9 +10,9 @@ const Header = () => {
         
         <Wrapper>
         <Link to="/">
-            <Logo>
+            <>
             <h1>So You Want to Escape Your Life</h1>
-            </Logo>
+            </>
         </Link>
         </Wrapper>
     );

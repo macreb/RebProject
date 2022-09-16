@@ -4,7 +4,7 @@
     
     import { useContext, useState } from "react";
     import { useHistory } from "react-router-dom";
-    import { FlightContext } from "./FlightContext";
+    import { EscapeContext } from "./EscapeContext";
     
     const Escape = () => {
         const {
@@ -12,7 +12,7 @@
             setGivenName,
             email,
             setEmail
-        } = useContext(FlightContext);
+        } = useContext(EscapeContext);
     
         const history = useHistory();
     

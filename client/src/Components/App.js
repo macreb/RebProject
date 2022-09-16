@@ -5,9 +5,9 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { useContext } from "react";
 
 import Header from "./Header";
-import Footer from "./Footer";
 import Escape from "./Escape";
 import QuizResult from "./QuizResult";
+import Log from "./Log";
 import Footer from "./Footer";
 
 const App = () => {
@@ -18,13 +18,13 @@ const App = () => {
       <Main>
         <Switch>
           <Route exact path="/">
-            <Landing />
+            <Escape />
           </Route>
           <Route exact path="/result">
             <QuizResult />
           </Route>
           <Route exact path="/feelings">
-            <Feelings />
+            <Log />
           </Route>
           <Route path="">404: Hmmm... it seems like there's nothing here</Route>
         </Switch>
