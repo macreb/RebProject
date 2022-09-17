@@ -4,9 +4,9 @@
     
     import { useContext, useState } from "react";
     import { useHistory } from "react-router-dom";
-    import { EscapeContext } from "./EscapeContext";
+    import { QuizContext } from "./QuizContext";
     
-    const Escape = () => {
+    const Quiz = () => {
         const {
             givenName,
             setGivenName,
@@ -99,4 +99,4 @@
         }
     `;
     
-    export default Escape;
+    export default Quiz;
