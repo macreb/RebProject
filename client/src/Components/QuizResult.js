@@ -13,7 +13,7 @@ const QuizResult = () => {
     let history = useHistory();
 
     const fakeResult = {
-        country: "Pangea"
+        country: "Fake Country for Testing Purposes"
     };
 
     // const result = JSON.parse(sessionStorage.getItem("destination"));

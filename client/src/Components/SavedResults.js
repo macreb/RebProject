@@ -7,11 +7,14 @@ import { QuizContext } from "./QuizContext";
 
 const SavedResults = () => {
 
+    const viewSaved = () => {
+        //GET previously saved results from mongoDB
+    };
     const handleEdit = () => {
-        //stuff about posting a change to the server
+        //PATCH new destination name to existing mongoDB entry
     };
     const handleDelete = () => {
-        //stuff about posting a change to the server
+        //DELETE previously saved result from mongoDB
     };
 
     return (
@@ -20,7 +23,7 @@ const SavedResults = () => {
         <ResultWrapper>
         <Heading>Your last saved destination:</Heading>
         <ListResults>
-            <Row>LAST SAVED PLACE
+            <Row>Placeholder for last saved destination
                 <ButtonDiv>
     <Button onClick={handleEdit}>
             Edit
@@ -32,6 +35,7 @@ const SavedResults = () => {
         </Row>
         </ListResults>
         </ResultWrapper>
+        <div>Note: server endpoints are set up (and functioning correctly) to edit or delete saved results - they're just not connecting to the fetches inside the component here yet 🐞</div>
     </Wrapper>
 </>
     )

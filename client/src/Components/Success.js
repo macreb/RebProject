@@ -2,7 +2,7 @@ import styled from "styled-components";
 import GlobalStyles from "./GlobalStyles";
 
 import { useContext, useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, Link, useHistory } from "react-router-dom";
 import { QuizContext } from "./QuizContext";
 
 const Success = () => {
@@ -12,8 +12,8 @@ const Success = () => {
 <Wrapper>
         <Heading>Success!</Heading>
         <ButtonWrapper>
-            <Link to="/">Return home to find your destiny!</Link>
-            <Link to="/saved">View saved destinations</Link>
+            <StyledLink to="/">Return home to find your destiny!</StyledLink>
+            <StyledLink to="/saved">View saved destinations</StyledLink>
             </ButtonWrapper>
             </Wrapper>
             </>
@@ -33,7 +33,7 @@ display: flex;
 justify-content: space-evenly;
 `
 
-const Link = styled.button`
+const StyledLink = styled(NavLink)`
 margin: 42px;
 width: 180px;
 height: 100px;
