@@ -5,10 +5,10 @@ import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { QuizContext } from "./QuizContext";
 
-const QuizResult = () => {
+const SignIn = () => {
 
     return (
-    <div>quiz result</div>
+    <div>sign in</div>
     // const [ destination, setDestination ] = useState("");
 
     // const getDestination = () => {
@@ -16,4 +16,4 @@ const QuizResult = () => {
     )
 };
 
-export default QuizResult;
+export default SignIn;

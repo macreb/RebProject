@@ -1,33 +1,35 @@
-// "use strict";
+"use strict";
 
-const express = require('express')
+const express = require("express");
+const morgan = require("morgan")
 const app = express()
+
 const PORT = 8000
 
 const {
-    myGetFunction,
-    myPostFunction,
-    myPatchFunction,
-    myDeleteFunction
+    getSavedResult,
+    postSavedResult,
+    patchSavedResult,
+    deleteSavedResult
 } = require("./handlers");
 
 express()
 
     // This will give us will log more info to the console. see https://www.npmjs.com/package/morgan
-    // .use(morgan("tiny"))
-    // .use(express.json())
+    .use(morgan("tiny"))
+    .use(express.json())
 
     // Any requests for static files will go into the public folder
-    // .use(express.static("public"))
+    .use(express.static("public"))
 
 
-    .get('/', myGetFunction)
+    .get('/api/saved', getSavedResult)
 
-    .post("/", myPostFunction)
+    .post("/api/saved", postSavedResult)
 
-    .patch("/", myPatchFunction)
+    .patch("/api/saved", patchSavedResult)
 
-    .delete("/", myDeleteFunction)
+    .delete("/api/delete", deleteSavedResult)
     
 
     // catch-all endpoint...

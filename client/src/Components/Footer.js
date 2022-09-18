@@ -2,18 +2,23 @@ import styled from "styled-components";
 import { Link, NavLink } from "react-router-dom";
 
 
-const Footer = () => (
+const Footer = () => {
+
+    return (
     <Wrapper>
-        <Link to="/">
-                <h1>Play again?</h1>
-        </Link>
+        <div>Wherever you go, there you are 💞</div>
     </Wrapper>
-    );
+    )
+};
 
 const Wrapper = styled.div`
     display: flex;
-    margin: auto auto 24px;
     height: 60px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background-color: lightgray;
 `;
 
 const Text = styled.p`
@@ -25,6 +30,10 @@ const Text = styled.p`
 export default Footer;
 
 
+
+// Link to="/">
+//                 <h1>Play again?</h1>
+//         </Link>
 
 // could change link to styled NavLink
 

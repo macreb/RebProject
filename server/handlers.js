@@ -1,12 +1,13 @@
-// "use strict";
-
-// use this package to generate unique ids: https://www.npmjs.com/package/uuid
-// const { v4: uuidv4 } = require("uuid");
+"use strict";
 
 const { MongoClient } = require("mongodb");
 
-// require("dotenv").config();
+const ObjectId = require("mongodb").ObjectId;
+const { v4: uuidv4 } = require("uuid");
+
+require("dotenv").config();
 const { MONGO_URI } = process.env;
+
 
 const options = {
     useNewUrlParser: true,
@@ -17,6 +18,64 @@ const options = {
 const sendResponse = (res, status, data, message = "No message included") => {
     return res.status(status).json({ status, data, message });
 };
+
+
+// GET previously saved result
+const getSavedResult = async (req, res) => {
+    const client = new MongoClient(MONGO_URI, options);
+    await client.connect();
+    const db = client.db("finalProject");
+    
+    const savedResults = await db.collection("results").find().toArray();
+
+    savedResults
+    ? sendResponse(res, 200, savedResults)
+    : sendResponse(res, 404, null, "No previous quiz results found");
+    client.close();
+};
+
+
+// POST save new quiz result to server
+const postSavedResult = async (req, res) => {
+    const client = new MongoClient(MONGO_URI, options);
+
+    // will display in FE as <Name>, your destination is <City>, <Country>!
+    const {
+        name,
+        city,
+        country
+    } = req.body;
+
+
+    const quizResult = {
+        name,
+        city,
+        country
+    };
+
+    try{
+        await client.connect();
+        const db = client.db("finalProject");
+        await db.collection("results").insertOne(quizResult);
+
+        res.status(201).json({
+            status: 201, data: quizResult, message: "Destination saved" 
+        });
+    } catch (err) {
+        console.log(err.stack);
+        res.status(500).json({
+            status: 500,
+            // data: { quizResult },
+            message: err.message,
+        });
+    }
+    client.close();
+};
+
+
+
+
+
 
 // function to sign up a new user
 const handleNewUser = async (req, res) => {
@@ -113,58 +172,9 @@ const handleLogin = async (req, res) => {
 };
     
     
-// returns previous quiz results for logged in user
-const myGetFunction = async (req, res) => {
-    const client = new MongoClient(MONGO_URI, options);
-    await client.connect();
-    const db = client.db("finalProject");
-    
-    const previousResults = await db.collection("results").find().toArray();
-
-    (previousResults.length > 0)
-    ? sendResponse(res, 200, previousResults)
-    : sendResponse(res, 404, null, "No previous quiz results found");
-    client.close();
-};
-
-// saves quiz results to database for logged in user
-const myPostFunction = async (req, res) => {
-    const client = new MongoClient(MONGO_URI, options);
-
-    const resultBody = req.body;
-    
-    let newResult = {
-        _id: uuidv4(),
-        destination: resultBody.location,
-        // occupation: resultBody.job,
-        // relationshipStatus: resultBody.partner,
-        // pets: resultBody.animal,
-        // netWorth: resultBody.wealth,
-        // happinessIndex: resultBody.likert
-        };
-
-    try{
-        await client.connect();
-        const db = client.db("finalProject");
-        const result = await db
-            .collection("results")
-            .insertOne(newResult);
-        res 
-            .status(201)
-            .json({ status: 201, data: newResult, message: "Results saved" });
-    } catch (err) {
-        console.log(err.stack);
-        res.status(500).json({
-            status: 500,
-            data: { newResult },
-            message: err.message,
-        });
-    }
-    client.close();
-};
 
 // edits an existing result for logged in user
-const myPatchFunction = async (req, res) => {
+const patchSavedResult = async (req, res) => {
 //     const client = new MongoClient(MONGO_URI, options);
 
 //     const _id = req.body._id;
@@ -222,7 +232,7 @@ client.close();
 
 
 // deletes a specified reservation by ID
-const myDeleteFunction = async (req, res) => {
+const deleteSavedResult = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
     // const _id = req.params.reservation;
 
@@ -262,12 +272,19 @@ const myDeleteFunction = async (req, res) => {
 };
 
 module.exports = {
-    handleNewUser,
-    handleLogin,
-    myGetFunction,
-    myPostFunction,
-    myPatchFunction,
-    myDeleteFunction
+    getSavedResult,
+    postSavedResult,
+    patchSavedResult,
+    deleteSavedResult
 };
 
 
+    // let newResult = {
+    //     _id: uuidv4(),
+    //     destination: resultBody.location,
+        // occupation: resultBody.job,
+        // relationshipStatus: resultBody.partner,
+        // pets: resultBody.animal,
+        // netWorth: resultBody.wealth,
+        // happinessIndex: resultBody.likert
+        // };

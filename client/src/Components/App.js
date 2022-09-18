@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import GlobalStyles from "./GlobalStyles";
 
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { useContext } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { useContext, useState, useEffect, useParams } from "react";
 
 import Header from "./Header";
+import Nav from "./NavBar";
 import Quiz from "./Quiz";
 import QuizResult from "./QuizResult";
 import SavedResults from "./SavedResults";
@@ -12,31 +13,34 @@ import Footer from "./Footer";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <>
       <GlobalStyles />
-      <Header />
       <Main>
-        <Switch>
+    <BrowserRouter>
+      <Header />
+      <Switch>
           <Route exact path="/">
-            <Quiz />
+            <Quiz/>
           </Route>
           <Route exact path="/result">
-            <QuizResult />
+            <QuizResult/>
           </Route>
-          <Route exact path="/feelings">
-            <SavedResults />
+            <Route exact path="/saved">
+            <SavedResults/>
           </Route>
-          <Route path="">404: Hmmm... it seems like there's nothing here</Route>
-        </Switch>
-        <Footer />
-      </Main>
+          <Route exact path="">404: Hmmm... it seems like there's nothing here</Route>
+      </Switch>
+      <Footer />
     </BrowserRouter>
+    </Main>
+    </>
   );
 }
 
 const Main = styled.div`
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 110px);
 `;
 
 export default App;
