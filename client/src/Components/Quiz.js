@@ -100,7 +100,7 @@ text-align: right;
 
 const Button = styled.button`
 padding: 10px;
-margin: 20px;
+margin: 24px;
 border-radius: 5px;
 background-color: lightgray;
 color: fuchsia;

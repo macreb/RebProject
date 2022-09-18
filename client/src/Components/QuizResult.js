@@ -75,6 +75,12 @@ text-align: center;
 
 const Button = styled.button`
 margin: 42px;
+width: 180px;
+font-size: 24px;
+padding: 10px;
+border-radius: 5px;
+background-color: lightgray;
+color: fuchsia;
 &:hover {
         cursor: pointer;
     }
