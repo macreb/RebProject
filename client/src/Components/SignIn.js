@@ -2,7 +2,7 @@ import styled from "styled-components";
 import GlobalStyles from "./GlobalStyles";
 
 import { useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink, Link } from "react-router-dom";
 import { QuizContext } from "./QuizContext";
 
 
@@ -17,9 +17,6 @@ const SignIn = () => {
         const [userEmail, setUserEmail] = useState("");
         const [passwordInput, setPasswordInput] = useState("");
         const [inputType, setInputType] = useState("password");
-        
-        // some kind of problem with navigate
-        // let navigate = useNavigate();
 
         const handleSubmit = (e) => {
             e.preventDefault();
@@ -98,7 +95,7 @@ const SignIn = () => {
                 </SignInForm>
                     <NoAccountRow>
                     <p>If you do not have an account, click here to create one:</p>
-                    <SignUpLink href="/signup">Sign Up!</SignUpLink>
+                    <SignUpLink to="/signup">Sign Up!</SignUpLink>
                 </NoAccountRow>
                 </Wrapper>
                 </>
@@ -158,7 +155,7 @@ flex-direction: row;
 justify-content: space-around;
 align-items: center;
 `
-const SignUpLink = styled.button`
+const SignUpLink = styled(NavLink)`
 font-size: 24px;
 width: 200px;
 padding: 10px;
