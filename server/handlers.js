@@ -78,40 +78,40 @@ const postSavedResult = async (req, res) => {
 };
 
 
-//WORKS
+//IT WORRRRRKKKKKSSSSS
 // edits an existing result for logged in user
 const patchSavedResult = async (req, res) => {
         const client = new MongoClient(MONGO_URI, options);
     
         const _id = req.body._id;
-        const destination = req.body.destination;
+        const destinationCountry = req.body.destinationCountry;
         const query = { _id }
-        const newDestination = { $set: { ...req.body } };
+        const newDestinationCountry = { $set: { ...req.body } };
     
         try {
             await client.connect();
             const db = client.db("finalProject");
             
-            const oldDestination = await db.collection("results").findOne({ _id });
+            const oldDestination = await db.collection("results").findOne({ _id }).destinationCountry;
     
-            let destinationChanged = oldDestination.destination != destination;
+            let destinationChanged = oldDestination != destinationCountry;
     
             // if the newly entered destination does not match the old one, update the database with new destination
             if (!destinationChanged) {
-                res.status(404).json({ status: 404, data: destination, message: "Error: new destination is the same as old destination" });
+                res.status(404).json({ status: 404, data: destinationCountry, message: "Error: new destination is the same as old destination" });
 
             } else {
-                const updateDestination = await db.collection("results").updateOne({ _id }, { $set: { ...destination}});
+                const updateDestination = await db.collection("results").updateOne({ _id }, { $set: { ...destinationCountry}});
                 res
                     .status(201)
-                    .json({ status: 201, data: { updatedReservation }, message: "Successfully updated reservation" });
+                    .json({ status: 201, data: { newDestinationCountry }, message: "Successfully updated destination" });
             }
 
     } catch (err) {
         console.log(err.stack);
         res
             .status(500)
-            .json({ status: 500, data: { updatedReservation }, message: err.message });
+            .json({ status: 500, data: { newDestinationCountry }, message: err.message });
     }
     client.close();
     };
@@ -167,7 +167,8 @@ const handleSignup = async (req, res) => {
             _id: uuidv4(),
             givenName: newUserBody.givenName,
             email: newUserBody.email,
-            password: newUserBody.password
+            password: newUserBody.password,
+            previousResults: []
         };
 
         // check if they're already in the db

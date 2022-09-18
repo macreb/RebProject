@@ -12,43 +12,52 @@ const QuizResult = () => {
     
     let history = useHistory();
 
+    const fakeResult = {
+        country: "Pangea"
+    };
+
     // const result = JSON.parse(sessionStorage.getItem("destination"));
     // console.log(result);
 
     useEffect(() => {
-        if (destinationCountry) {
-            console.log(destinationCountry);
+        if (fakeResult) {
+            console.log(fakeResult);
             }
         }, []);
         
-
     const handleSave = () => {
         console.log("Attempting to save result...")
     
-        // fetch("/api/save-result", {
-        //     method: "POST",
-        //     body: JSON.stringify(result),
-        //     headers: {
-        //         Accept: "application/json",
-        //         "Content-Type": "application/json",
-        //     },
-        // })
-        //     .then((res) => res.json())
-        //     .then((data) => {
-        //         if (data.status === 201) {
-        //             sessionStorage.setItem("result", JSON.stringify(data.data));
-        //             history.push("/success");
-        //         } else {
-        //             window.alert("Could not save result.");
-        //         }
-        //     });
-    };
+        // const [ saveResult, setSaveResult ] = useState(null);
+
+        fetch("/api/save-result", {
+            method: "POST",
+            body: JSON.stringify(fakeResult),
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.status === 201) {
+                    // sessionStorage.setItem("result", JSON.stringify(data.data));
+                    // setSaveResult
+                    history.push("/success");
+                } else {
+                    window.alert("Could not save result.");
+            }
+        }
+            );
+                }
+        
+    
 
     return (
         <>
         <Wrapper>
             <ResultWrapper>
-        <Result>Congratulations, you're going to <Destination>{destinationCountry}</Destination>!!!
+        <Result>Congratulations, you're going to <Destination>Random country from api - it only displays in console.log on the previous page though, so it's a mystery to you{destinationCountry}</Destination>!!!
     </Result>
 
         <Button onClick={handleSave}>

@@ -34,6 +34,7 @@
             };
             
             useEffect(() => {
+
                 if (fetchResult) {
                     console.log(JSON.parse(fetchResult));
                     

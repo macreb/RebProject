@@ -17,7 +17,7 @@ const SignUp = () => {
   // states for storage user input from form
   const [userFirstName, setUserFirstName] = useState("");
   const [userEmail, setUserEmail] = useState("");
-  // const [inputType, setInputType] = useState("password");
+  const [inputType, setInputType] = useState("password");
   const [passwordInput, setPasswordInput] = useState("");
   const [confirmPasswordInput, setConfirmPasswordInput] = useState("");
 
@@ -27,11 +27,17 @@ const SignUp = () => {
     e.preventDefault();
     
     // Pass the data from the form into an object that we can pass to the backend
-      const newUserData = {
-          name: userFirstName,
-          email: userEmail,
-          password: passwordInput,
-      };
+    
+    const newUserData = {
+      name: userFirstName,
+      email: userEmail,
+      password: passwordInput,
+    };
+
+    // check passwords match
+    if (passwordInput !== confirmPasswordInput) {
+      window.alert("Passwords do not match")
+    }
 
     // options for the post method incl stringifying our object to post to mongoDB
     const options = {
@@ -44,10 +50,10 @@ const SignUp = () => {
     };
 
     console.log(newUserData);
-  };
+  
 
-  // function that will send a .post request containing the user data if the user passes the input handling below
-  const addUser = (options) => {
+  // const addUser = (e) => {
+  //   e.preventDefault();
     fetch("/api/sign-up", options)
       .then((res) => res.json())
       .then((json) => {
@@ -57,15 +63,12 @@ const SignUp = () => {
         } else if(status === 200){
           setIsLoggedIn(true);
           setCurrentUser(json.data);
+          console.log("Account created, new user logged in")
         }
       })
       .catch((err) => console.log(err))
-    };
-
-    // check passwords match
-    if(passwordInput !== confirmPasswordInput){
-      window.alert("Passwords do not match")
-    };
+    // };
+  };
   
   // different things happen depending on whether user is logged in or not
   return (
