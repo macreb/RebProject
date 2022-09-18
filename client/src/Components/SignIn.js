@@ -25,9 +25,9 @@ const SignIn = () => {
             e.preventDefault();
 
             const userLogin = { 
-            email: userEmail, 
-            password: passwordInput 
-            };
+                email: userEmail, 
+                password: passwordInput 
+                };
             
             const options = {
             method: "POST",
@@ -37,7 +37,7 @@ const SignIn = () => {
             "Content-Type": "application/json" 
             },
             };
-            fetch("/api/login", options)
+            fetch("/api/sign-in", options)
             .then((res) => res.json())
             .then((json) => {
                 const {status, error} = json;

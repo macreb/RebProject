@@ -48,7 +48,7 @@ const SignUp = () => {
 
   // function that will send a .post request containing the user data if the user passes the input handling below
   const addUser = (options) => {
-    fetch("/api/signup", options)
+    fetch("/api/sign-up", options)
       .then((res) => res.json())
       .then((json) => {
         const {status, message, error} = json;

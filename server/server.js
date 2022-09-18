@@ -7,7 +7,7 @@ const app = express()
 const PORT = 8000
 
 const {
-    getSavedResult,
+    getSavedResults,
     postSavedResult,
     patchSavedResult,
     deleteSavedResult,
@@ -25,7 +25,7 @@ express()
     .use(express.static("public"))
 
 
-    .get('/api/saved-results', getSavedResult)
+    .get('/api/saved-results', getSavedResults)
 
     .post("/api/save-result", postSavedResult)
 
@@ -33,9 +33,9 @@ express()
 
     .delete("/api/delete-result/:result", deleteSavedResult)
     
-    .post("/api/signin", handleSignin)
+    .post("/api/sign-in", handleSignin)
 
-    .post("/api/signup", handleSignup)
+    .post("/api/sign-up", handleSignup)
 
 
 
