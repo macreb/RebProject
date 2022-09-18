@@ -2,12 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from './Components/App';
 
-import QuizProvider from "./Components/QuizContext"
+import { QuizProvider } from "./Components/QuizContext"
 
 ReactDOM.render(
-  <>
+  <QuizProvider>
     <App />
-  </>,
+  </QuizProvider>,
   document.getElementById("root")
 );
 

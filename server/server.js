@@ -10,7 +10,9 @@ const {
     getSavedResult,
     postSavedResult,
     patchSavedResult,
-    deleteSavedResult
+    deleteSavedResult,
+    handleSignin,
+    handleSignup
 } = require("./handlers");
 
 express()
@@ -23,14 +25,19 @@ express()
     .use(express.static("public"))
 
 
-    .get('/api/saved', getSavedResult)
+    .get('/api/saved-results', getSavedResult)
 
-    .post("/api/saved", postSavedResult)
+    .post("/api/save-result", postSavedResult)
 
-    .patch("/api/saved", patchSavedResult)
+    .patch("/api/edit-result/:result", patchSavedResult)
 
-    .delete("/api/delete", deleteSavedResult)
+    .delete("/api/delete-result/:result", deleteSavedResult)
     
+    .post("/api/signin", handleSignin)
+
+    .post("/api/signup", handleSignup)
+
+
 
     // catch-all endpoint...
     .get("*", (req, res) => {

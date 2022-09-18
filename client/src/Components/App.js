@@ -10,6 +10,8 @@ import Quiz from "./Quiz";
 import QuizResult from "./QuizResult";
 import SavedResults from "./SavedResults";
 import Footer from "./Footer";
+import SignUp from "./SignUp";
+import SignIn from "./SignIn";
 
 const App = () => {
   return (
@@ -25,8 +27,14 @@ const App = () => {
           <Route exact path="/result">
             <QuizResult/>
           </Route>
-            <Route exact path="/saved">
+          <Route exact path="/saved">
             <SavedResults/>
+          </Route>
+          <Route exact path="/signup">
+            <SignUp/>
+          </Route>
+          <Route exact path="/signin">
+            <SignIn/>
           </Route>
           <Route exact path="">404: Hmmm... it seems like there's nothing here</Route>
       </Switch>

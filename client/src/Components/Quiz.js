@@ -47,6 +47,8 @@
             setDestinationCountry(fetchResult[randomCountry]);
         };
 
+        // setDestinationCountry("Test Destination");
+
         return (
             <>
             <Wrapper>

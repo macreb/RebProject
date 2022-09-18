@@ -1,31 +1,32 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 export const QuizContext = createContext(null);
 
 export const QuizProvider = ({ children }) => {
     
-    const [allFlights, setAllFlights] = useState([]);
-    const [selectedFlight, setSelectedFlight] = useState("");
-    const [seat, setSeat] = useState("");
-    const [givenName, setGivenName] = useState("");
-    const [surname, setSurname] = useState("");
-    const [email, setEmail] = useState("");
+    
+
+    const [givenName, setGivenName] = useState(""); 
+    const [email, setEmail] = useState(""); 
+    const [isLoggedIn, setIsLoggedIn] = useState(null); 
+    const [destinationCountry, setDestinationCountry] = useState([]); 
+    
+    
+    // const [selectedFlight, setSelectedFlight] = useState("");
+    // const [seat, setSeat] = useState("");
+    // const [surname, setSurname] = useState("");
 
     return (
         <QuizContext.Provider
             value={{
-                seat,
-                setSeat,
                 givenName,
                 setGivenName,
-                surname,
-                setSurname,
                 email,
                 setEmail,
-                allFlights,
-                setAllFlights,
-                selectedFlight,
-                setSelectedFlight,
+                isLoggedIn,
+                setIsLoggedIn,
+                destinationCountry,
+                setDestinationCountry,
             }}
         >
         {children}

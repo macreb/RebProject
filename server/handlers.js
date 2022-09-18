@@ -39,18 +39,20 @@ const getSavedResult = async (req, res) => {
 const postSavedResult = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
 
+    _id = uuidv4();
+    
     // will display in FE as <Name>, your destination is <City>, <Country>!
     const {
-        name,
-        city,
-        country
+        _id,
+        givenName,
+        destinationCountry
     } = req.body;
 
 
     const quizResult = {
-        name,
-        city,
-        country
+        _id,
+        givenName,
+        destinationCountry
     };
 
     try{
@@ -78,7 +80,7 @@ const postSavedResult = async (req, res) => {
 
 
 // function to sign up a new user
-const handleNewUser = async (req, res) => {
+const handleSignup = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
     const db = client.db("finalProject");
     let user = null;
@@ -91,13 +93,13 @@ const handleNewUser = async (req, res) => {
         if (!user) {
             req.body._id = uuidv4();
             req.body.givenName = givenName;
+            req.body.email = email;
             req.body.password = password;
 
             // empty array to hold results after taking quiz
-            req.body.previousResult = [];
+            req.body.previousResults = [];
 
-            // add new user
-        
+        // add new user
         const userAdded = await db.collection("users").insertOne(req.body);
         
         if (userAdded) {
@@ -110,7 +112,7 @@ const handleNewUser = async (req, res) => {
                 res.status(404).json({
                     status: 404,
                     data: req.body,
-                    message: "Request failed",
+                    message: "Sign-up request failed",
                     });
             }   
         } else {
@@ -131,7 +133,7 @@ const handleNewUser = async (req, res) => {
 };
 
 // function to handle login of existing user
-const handleLogin = async (req, res) => {
+const handleSignin = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
     const db = client.db("finalProject")
     let user = null;
@@ -170,8 +172,11 @@ const handleLogin = async (req, res) => {
         }
         client.close();
 };
-    
-    
+
+
+
+
+
 
 // edits an existing result for logged in user
 const patchSavedResult = async (req, res) => {
@@ -275,7 +280,9 @@ module.exports = {
     getSavedResult,
     postSavedResult,
     patchSavedResult,
-    deleteSavedResult
+    deleteSavedResult,
+    handleSignin,
+    handleSignup
 };
 
 

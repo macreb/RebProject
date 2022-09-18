@@ -6,7 +6,7 @@ const Footer = () => {
 
     return (
     <Wrapper>
-        <div>Wherever you go, there you are 💞</div>
+        <Noexit>🎢<Skull>💀</Skull>  Wherever you go, there you are  <Skull>💀</Skull>🎢</Noexit>
     </Wrapper>
     )
 };
@@ -18,14 +18,20 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     padding: 15px;
-    background-color: lightgray;
+    background-color: black;
 `;
 
-const Text = styled.p`
-    font-size: 36px;
-    text-align: center;
-    margin: 12px 0 0 24px;
-`;
+const Noexit = styled.span`
+font-size: 16px;
+color: lightgray;
+`
+
+const Skull = styled.span`
+font-size: 20px;
+/* background-color: black;
+border-radius: 50%; */
+padding: 5px;
+`
 
 export default Footer;
 
