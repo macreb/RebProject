@@ -146,51 +146,53 @@ const patchSavedResult = async (req, res) => {
 const handleSignup = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
     const db = client.db("finalProject");
-    let user = null;
+    // let user = null;
+
+    const newUserBody = req.body;
     
     try {
         await client.connect();
-        user = await db.collection("users").findOne({ email: req.body.email });
+        const existingUser = await db.collection("users").findOne({ email: newUserBody.email });
+
+        let newUser = {
+            _id: uuidv4(),
+            givenName: newUserBody.givenName,
+            email: newUserBody.email,
+            password: newUserBody.password
+        };
 
         // check if they're already in the db
-        if (!user) {
-            req.body._id = uuidv4();
-            req.body.givenName = givenName;
-            req.body.email = email;
-            req.body.password = password;
+        if (!existingUser) {
 
-            // empty array to hold results after taking quiz
-            req.body.previousResults = [];
+        // empty array to hold results after taking quiz
+        // req.body.previousResults = [];
 
         // add new user
-        const newUser = await db.collection("users").insertOne(req.body);
-        
-        let newUserData = req.body;
+        const addUser = await db.collection("users").insertOne(newUser);
 
-        if (newUser) {
+        if (addUser) {
             res.status(200).json({
                 status: 200,
-                data: newUserData,
+                data: addUser,
                 message: "Sign-up successful!"
                 });
             } else {
                 res.status(404).json({
                     status: 404,
-                    data: newUserData,
+                    data: addUser,
                     message: "Sign-up request failed",
                     });
             }   
         } else {
                 res.status(404).json({
                     status: 404,
-                    data: newUserData,
+                    data: newUser,
                     message: "Error: email already exists in database",
                 });
         }
     } catch (err) {
         res.status(500).json({
             status: 500,
-            data: newUserData,
             message: err.message,
         });
     }
@@ -198,49 +200,52 @@ const handleSignup = async (req, res) => {
 };
 
 
-// REALLY PROBABLY ALSO BROKEN
+//WORKING
 // function to handle login of existing user
 const handleSignin = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
     const db = client.db("finalProject")
-    let user = null;
-
+    // let user = null;
+    
+    const userCredentials = req.body; 
+    
     try {
         await client.connect();
-        user = await db.collection("users").findOne({ email: req.body.email });
-        if (user) {
+        const existingUser = await db.collection("users").findOne({ email: userCredentials.email });
+
+        if (existingUser) {
             // check password is correct
-            if (await compare(req.body.password, user.password)) {
+            if (userCredentials.password === existingUser.password) {
+                console.log("logged in")
                 res.status(200).json({
                     status: 200,
-                    data: user,
+                    data: userCredentials.givenName,
                     message: "You are now logged in",
             });
             } else {
+                console.log("incorrect password")
                 res.status(404).json({
                     status: 404,
-                    data: req.body,
+                    data: userCredentials.email,
                     message: "Error: password is incorrect",
             });
             }
             } else {
+                console.log("account not found")
                 res.status(404).json({
                     status: 404,
-                    data: req.body,
+                    data: userCredentials.email,
                     message: "User account not found",
             });
             }
         } catch (err) {
             res.status(500).json({
                 status: 500,
-                data: req.body,
                 message: err.message,
             });
         }
         client.close();
 };
-
-
 
 
 module.exports = {
@@ -253,6 +258,9 @@ module.exports = {
 };
 
 
+
+
+//ideas for the future
     // let newResult = {
     //     _id: uuidv4(),
     //     destination: resultBody.location,
