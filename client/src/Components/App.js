@@ -12,6 +12,7 @@ import SavedResults from "./SavedResults";
 import Footer from "./Footer";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
+import Success from "./Success"
 
 const App = () => {
   return (
@@ -35,6 +36,9 @@ const App = () => {
           </Route>
           <Route exact path="/signin">
             <SignIn/>
+          </Route>
+          <Route exact path="/success">
+            <Success/>
           </Route>
           <Route exact path="">404: Hmmm... it seems like there's nothing here</Route>
       </Switch>

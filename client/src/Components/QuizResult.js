@@ -5,7 +5,10 @@ import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { QuizContext } from "./QuizContext";
 
+
 const QuizResult = () => {
+    
+    let history = useHistory();
 
     const result = JSON.parse(sessionStorage.getItem("result"));
     console.log(result);
@@ -13,23 +16,23 @@ const QuizResult = () => {
     const handleSave = () => {
         console.log("Attempting to save result...")
     
-        // fetch("/api/save-result", {
-        //     method: "POST",
-        //     body: JSON.stringify(result),
-        //     headers: {
-        //         Accept: "application/json",
-        //         "Content-Type": "application/json",
-        //     },
-        // })
-        //     .then((res) => res.json())
-        //     .then((data) => {
-        //         if (data.status === 201) {
-        //             sessionStorage.setItem("result", JSON.stringify(data.data));
-        //             history.push("/confirmed");
-        //         } else {
-        //             window.alert("Uh oh... something's wrong. Please try again.");
-        //         }
-        //     });
+        fetch("/api/save-result", {
+            method: "POST",
+            body: JSON.stringify(result),
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.status === 201) {
+                    sessionStorage.setItem("result", JSON.stringify(data.data));
+                    history.push("/success");
+                } else {
+                    window.alert("Could not save result");
+                }
+            });
     };
 
     return (

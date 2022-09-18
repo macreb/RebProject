@@ -63,9 +63,9 @@ const SignUp = () => {
     };
 
     // check passwords match
-    // if(passwordInput !== confirmPasswordInput){
-    //   window.alert("Passwords do not match")
-    // };
+    if(passwordInput !== confirmPasswordInput){
+      window.alert("Passwords do not match")
+    };
   
   // different things happen depending on whether user is logged in or not
   return (
@@ -112,14 +112,14 @@ const SignUp = () => {
                   required = {true}
                   onChange={(e) => setPasswordInput(e.target.value)} 
                 /></Row>
-              {/* <Row><Label htmlFor='confirm-password'>Confirm password:</Label>
+              <Row><Label htmlFor='confirm-password'>Confirm password:</Label>
                 <Input 
                   type="password"
                   placeholder="Re-enter password"
                   value={confirmPasswordInput} 
                   required = {true}  
                   onChange={(e)=>setConfirmPasswordInput(e.target.value)} 
-                  /></Row> */}
+                  /></Row>
               <ButtonDiv>
               <SignUpSubmit type="submit">Create account</SignUpSubmit>
               </ButtonDiv>

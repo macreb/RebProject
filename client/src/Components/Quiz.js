@@ -13,8 +13,8 @@
 
         let history = useHistory();
 
-        const handleClick = () => {
-            console.log("clicked")
+        const handlePlay = () => {
+            console.log("Searching for your destiny...")
 
 
             const requestOptions = {
@@ -55,7 +55,7 @@
                 <>
             <Destiny> Click the button to find out your destiny!<Asterisk>*</Asterisk></Destiny>
                 </>
-            <Button onClick={handleClick}>
+            <Button onClick={handlePlay}>
                 Let's goooooo!
             </Button>
                 { !destinationCountry
