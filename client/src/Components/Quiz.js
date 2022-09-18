@@ -1,21 +1,18 @@
     import styled from "styled-components";
     import GlobalStyles from "./GlobalStyles";
-    
-    import { useContext, useState } from "react";
+    import { useContext, useState, useEffect } from "react";
     import { useHistory } from "react-router-dom";
     import { QuizContext } from "./QuizContext";
     
     const Quiz = () => {
-
         const [ destinationCountry, setDestinationCountry ] = useState(null); 
         const [ randomCountry, setRandomCountry ] = useState(null); 
-        const [ fetchResult, setFetchResult ] = useState(null); 
+        const { fetchResult, setFetchResult } = useContext(QuizContext); 
 
         let history = useHistory();
 
         const handlePlay = () => {
             console.log("Searching for your destiny...")
-
 
             const requestOptions = {
                 method: 'GET',
@@ -27,27 +24,41 @@
                 .then(result => {
                     // added this if condition...
                     if (result) {
-                        sessionStorage.setItem("destination", JSON.stringify(result.data));
-                        history.push("/result");
-
-                        console.log(result)
-                        setFetchResult(result.data)
-
+                        // console.log(result)
+                        setFetchResult(result)
                     }  else {
                         window.alert("Uh oh... something's wrong. Please try again.");
                     }              
                 })
-                .catch(error => console.log('error', error));
-        };
+                .catch(error => console.log('error', error))
+            };
+            
+            useEffect(() => {
+                if (fetchResult) {
+                    console.log(JSON.parse(fetchResult));
+                    
+                    const listOfCountries = JSON.parse(fetchResult).data;
+                    // console.log(listOfCountries)
+                    
+                    // console.log(Object.keys(listOfCountries).length)
+                    console.log(listOfCountries.length)
+                    
+                    const randomCountryNum = Math.floor(Math.random() * (listOfCountries.length));
+                    console.log(randomCountryNum);
+                    
+                    const randomCountry = listOfCountries[randomCountryNum];
+                    console.log(randomCountry);
+                    
+                    // const randomCountryName = Object.values(randomCountry);
+                    // console.log(randomCountry);
+                    
+                    setDestinationCountry(randomCountry.country);
 
-        console.log(fetchResult);
-        
-        if (fetchResult) {
-            const randomCountry = Math.floor(Math.random() * (fetchResult.length));
-            setDestinationCountry(fetchResult[randomCountry]);
-        };
+                    history.push("/result");
+            };
+        }, [fetchResult])
 
-        // setDestinationCountry("Test Destination");
+        console.log(destinationCountry);
 
         return (
             <>
@@ -58,14 +69,14 @@
             <Button onClick={handlePlay}>
                 Let's goooooo!
             </Button>
-                { !destinationCountry
+                {/* { !destinationCountry
                 ? <></>
                 : <>
                 <DestinationCountry>
                     { destinationCountry }
                 </DestinationCountry>
                 </>
-                }
+                } */}
                 </Wrapper>
                 <Caveat>*It's actually more of a destina<i>tion</i> than a destin<i>y</i>... but hey, it's a start.</Caveat>
             </>
@@ -209,3 +220,20 @@ export default Quiz;
     //     }
     // `;
     
+
+
+
+              // fetch("https://countriesnow.space/api/v0.1/countries", requestOptions)
+            //     .then(response => response.text())
+            //     .then(result => {
+            //         // added this if condition...
+            //         if (result) {
+            //             sessionStorage.setItem("destination", JSON.stringify(result.data));
+            //             history.push("/result");
+            //             console.log(result)
+            //             setFetchResult(result.data)
+            //         }  else {
+            //             window.alert("Uh oh... something's wrong. Please try again.");
+            //         }              
+            //     })
+            //     .catch(error => console.log('error', error));

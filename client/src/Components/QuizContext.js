@@ -4,13 +4,12 @@ export const QuizContext = createContext(null);
 
 export const QuizProvider = ({ children }) => {
     
-    
-
     const [givenName, setGivenName] = useState(""); 
     const [email, setEmail] = useState(""); 
     const [isLoggedIn, setIsLoggedIn] = useState(null); 
     const [destinationCountry, setDestinationCountry] = useState([]); 
-    
+    const [ fetchResult, setFetchResult ] = useState(null); 
+
     
     // const [selectedFlight, setSelectedFlight] = useState("");
     // const [seat, setSeat] = useState("");
@@ -27,6 +26,8 @@ export const QuizProvider = ({ children }) => {
                 setIsLoggedIn,
                 destinationCountry,
                 setDestinationCountry,
+                fetchResult,
+                setFetchResult
             }}
         >
         {children}

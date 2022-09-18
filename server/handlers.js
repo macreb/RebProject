@@ -24,13 +24,22 @@ const sendResponse = (res, status, data, message = "No message included") => {
 const getSavedResults = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
     await client.connect();
-    const db = client.db("finalProject");
+    try {
+        const db = client.db("finalProject");
+        
+        const savedResults = await db.collection("results").find().toArray();
     
-    const savedResults = await db.collection("results").find().toArray();
-
-    (savedResults.length > 0)
-    ? sendResponse(res, 200, savedResults, "Showing saved results")
-    : sendResponse(res, 404, null, "No previous quiz results found");
+        (savedResults.length > 0)
+        ? sendResponse(res, 200, savedResults, "Showing saved results")
+        : sendResponse(res, 404, null, "No previous quiz results found");
+    } catch(err) {
+        console.log(err.stack);
+        res.status(500).json({
+            status: 500,
+            data: { savedResults },
+            message: err.message,
+        });
+    }
     client.close();
 };
 
@@ -69,7 +78,7 @@ const postSavedResult = async (req, res) => {
 };
 
 
-// SOMETHING WRONG WITH THIS
+//WORKS
 // edits an existing result for logged in user
 const patchSavedResult = async (req, res) => {
         const client = new MongoClient(MONGO_URI, options);

@@ -1,47 +1,54 @@
 import styled from "styled-components";
 import GlobalStyles from "./GlobalStyles";
 
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { QuizContext } from "./QuizContext";
 
 
 const QuizResult = () => {
     
+    const { destinationCountry } = useContext(QuizContext); 
+    
     let history = useHistory();
 
-    const result = JSON.parse(sessionStorage.getItem("result"));
-    console.log(result);
+    // const result = JSON.parse(sessionStorage.getItem("destination"));
+    // console.log(result);
+
+    useEffect(() => {
+        if (destinationCountry) {
+            console.log(destinationCountry);
+            }
+        }, []);
+        
 
     const handleSave = () => {
         console.log("Attempting to save result...")
     
-        fetch("/api/save-result", {
-            method: "POST",
-            body: JSON.stringify(result),
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                if (data.status === 201) {
-                    sessionStorage.setItem("result", JSON.stringify(data.data));
-                    history.push("/success");
-                } else {
-                    window.alert("Could not save result");
-                }
-            });
+        // fetch("/api/save-result", {
+        //     method: "POST",
+        //     body: JSON.stringify(result),
+        //     headers: {
+        //         Accept: "application/json",
+        //         "Content-Type": "application/json",
+        //     },
+        // })
+        //     .then((res) => res.json())
+        //     .then((data) => {
+        //         if (data.status === 201) {
+        //             sessionStorage.setItem("result", JSON.stringify(data.data));
+        //             history.push("/success");
+        //         } else {
+        //             window.alert("Could not save result.");
+        //         }
+        //     });
     };
 
     return (
         <>
         <Wrapper>
             <ResultWrapper>
-        {/* <Result>Congratulations, <Name>{result.name}</Name>! You're going to <Destination>{result.destinationCountry}</Destination>!!!
-    </Result> */}
-    <Result>Congratulations, <Name>NAME</Name>! You're going to <Destination>DESTINATION</Destination>!!!
+        <Result>Congratulations, you're going to <Destination>{destinationCountry}</Destination>!!!
     </Result>
 
         <Button onClick={handleSave}>
