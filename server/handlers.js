@@ -69,60 +69,43 @@ const postSavedResult = async (req, res) => {
 };
 
 
-
+// SOMETHING WRONG WITH THIS
 // edits an existing result for logged in user
 const patchSavedResult = async (req, res) => {
-    //     const client = new MongoClient(MONGO_URI, options);
+        const client = new MongoClient(MONGO_URI, options);
     
-    //     const _id = req.body._id;
-    //     const destination = req.body.destination;
-    //     const query = { _id }
-    //     const newDestination = { $set: { ...req.body } };
+        const _id = req.body._id;
+        const destination = req.body.destination;
+        const query = { _id }
+        const newDestination = { $set: { ...req.body } };
     
-    //     try {
-    //         await client.connect();
-    //         const db = client.db("finalProject");
+        try {
+            await client.connect();
+            const db = client.db("finalProject");
             
-    //         const retrievedResult = await db.collection("results").findOne({ _id });
+            const oldDestination = await db.collection("results").findOne({ _id });
     
-    //         let destinationChanged = retrievedResult.destination != destination;
+            let destinationChanged = oldDestination.destination != destination;
     
-    //         // if the newly entered destination does not match the old one, update the database with new destination
-    //         if (destinationChanged) {
-    //             const updateDestination = await db.collection("results").updateOne({ _id }, { $set: { ...destination}});
-    //         }
-    // }
-    //     const updatedDestination = await db  
-    //         .collection("results")
-    //         .updateOne(reservationQuery, newDestination);
-    //     res
-    //         .status(201)
-    //         .json({ status: 201, data: { updatedReservation }, message: "Success!" });
-    // } catch (err) {
-    //     console.log(err.stack);
-    //     res
-    //         .status(500)
-    //         .json({ status: 500, data: { updatedReservation }, message: err.message });
-    // }
+            // if the newly entered destination does not match the old one, update the database with new destination
+            if (!destinationChanged) {
+                res.status(404).json({ status: 404, data: destination, message: "Error: new destination is the same as old destination" });
+
+            } else {
+                const updateDestination = await db.collection("results").updateOne({ _id }, { $set: { ...destination}});
+                res
+                    .status(201)
+                    .json({ status: 201, data: { updatedReservation }, message: "Successfully updated reservation" });
+            }
+
+    } catch (err) {
+        console.log(err.stack);
+        res
+            .status(500)
+            .json({ status: 500, data: { updatedReservation }, message: err.message });
+    }
     client.close();
     };
-    
-    
-        // const oldResult = {
-        //     _id = _id,
-        //     destination: resultBody.location,
-        //     occupation: resultBody.job,
-        //     relationshipStatus: resultBody.partner,
-        //     pets: resultBody.animal,
-        //     netWorth: resultBody.wealth,
-        //     };
-    
-    //     const flight = req.body.flight;
-    //     const seatID = req.body.seat;
-    //     const query = { _id: flight };
-    //     const _id = req.body._id;
-    //     const reservationQuery = { _id };
-    //     const reservationNewValues = { $set: { ...req.body } };
     
     
     //WORKS
