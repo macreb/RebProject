@@ -28,8 +28,11 @@ const SavedResults = () => {
                 console.log("Showing array of previously saved results:")
                 // console.log(result)
 
-                // Will eventually make a loop to iterate through
-                // each array element and display it in a list
+        // Will eventually make a loop to iterate through
+        // each array element and create a ul element for each entry
+        // Entries will have object keys making it possible
+        // for the logged in user to PATCH or DELETE entries
+
                 let resultArray = Array.map[result];
                 console.log(resultArray);
 
