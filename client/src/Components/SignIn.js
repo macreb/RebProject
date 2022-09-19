@@ -45,6 +45,8 @@ const SignIn = () => {
                 if (status >= 400) {
 
                   console.log("error is > 400")
+                  window.alert("User not found - please create an account")
+                  console.log("User not found - please create an account")
                 
                 } else if (status === 200) {
                 
