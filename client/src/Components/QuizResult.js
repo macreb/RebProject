@@ -67,7 +67,8 @@ const QuizResult = () => {
         <>
         <Wrapper>
             <ResultWrapper>
-        <Result>Congratulations, you're going to <Destination>Random country from api - it only displays in console.log on the previous page though, so it's a mystery to you{destinationCountry}</Destination>!!!
+        <Result><p>Congratulations, you're going to <Destination>Random country from api - it only displays in console.log on the previous page though, so it's a mystery to you{destinationCountry}</Destination>!!!</p>
+        <p>(don't worry, some fake destination data is included to demonstrate that the fetch successfully saves to MongoDB)</p>
     </Result>
 
         <Button onClick={handleSave}>
