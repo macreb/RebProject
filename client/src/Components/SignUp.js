@@ -57,6 +57,7 @@ const SignUp = () => {
       .then((res) => res.json())
       .then((json) => {
         const {status, error} = json;
+
         if (status >= 400) {
 
           console.log("error is > 400")

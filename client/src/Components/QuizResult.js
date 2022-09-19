@@ -12,9 +12,7 @@ const QuizResult = () => {
     
     let history = useHistory();
 
-    const fakeResult = {
-        country: "Fake Country for Testing Purposes"
-    };
+    const fakeResult = "Fake Country for Testing Purposes";
 
     // const result = JSON.parse(sessionStorage.getItem("destination"));
     // console.log(result);
@@ -30,29 +28,41 @@ const QuizResult = () => {
     
         // const [ saveResult, setSaveResult ] = useState(null);
 
-        fetch("/api/save-result", {
+        const newResultData = {
+            givenName: "Current user",
+            destinationCountry: fakeResult
+        }
+
+        const options = {
             method: "POST",
-            body: JSON.stringify(fakeResult),
+            body: JSON.stringify(newResultData),
             headers: {
                 Accept: "application/json",
-                "Content-Type": "application/json",
+                "Content-Type": "application/json" 
             },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                if (data.status === 201) {
-                    // sessionStorage.setItem("result", JSON.stringify(data.data));
-                    // setSaveResult
-                    history.push("/success");
-                } else {
-                    window.alert("Could not save result.");
-            }
-        }
-            );
-                }
-        
-    
+        };
 
+        console.log(newResultData);
+
+        fetch("/api/save-result", options) 
+            .then((res) => res.json())
+            .then((json) => {
+                const {status, error} = json;
+
+                if (status >= 400) {
+                    console.log("error is > 400")
+
+                } else if (status === 201) {
+                    console.log("status is 201")
+                    console.log("Result saved")
+                    history.push("/success");
+                // } else {
+                //     window.alert("Could not save result.");
+            }
+        })
+        .catch((err) => console.log(err))
+    };
+        
     return (
         <>
         <Wrapper>

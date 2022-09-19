@@ -13,13 +13,44 @@ const Header = () => {
     return (
         <>
         <Wrapper>
+            
+            <StyledLink to="/">
             <Title>So You Want to Escape Your Life</Title>
+            </StyledLink>
             <Subtitle>A one-click game for dreamers, escapist thinkers, and folks on the lam</Subtitle>
+            
+            <UserNav>
+            <Stack>
+                <UserLink to="/signin">User sign-in</UserLink>
+                {/* <UserLink to="/signup">Create account</UserLink> */}
+                </Stack>
+            </UserNav>
         </Wrapper>
         </>
     );
 };
 
+const UserNav = styled.div`
+padding-top: 10px;
+width: 100vw;
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+
+`
+const Stack = styled.div`
+    display: flex;
+flex-direction: column;
+`
+
+const UserLink = styled(NavLink)`
+font-size: 12px;
+border-radius: 10px;
+background-color: blue;
+color: white;
+padding: 5px;
+margin: 3px;
+`
 const Wrapper = styled.header`
     display: flex;
     height: 110px;
@@ -27,6 +58,9 @@ const Wrapper = styled.header`
     align-items: center;
     background-color: lightskyblue;
     padding: 15px;
+`
+const StyledLink = styled(NavLink)`
+text-decoration: none;
 `
 
 const Title = styled.div`

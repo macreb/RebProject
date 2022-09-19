@@ -12,7 +12,7 @@ const Success = () => {
 <Wrapper>
         <Heading>Success!</Heading>
         <ButtonWrapper>
-            <StyledLink to="/">Return home to find your destiny!</StyledLink>
+            <StyledLink to="/">Return home to find your destiny all over again!</StyledLink>
             <StyledLink to="/saved">View saved destinations</StyledLink>
             </ButtonWrapper>
             </Wrapper>
@@ -37,7 +37,7 @@ const StyledLink = styled(NavLink)`
 margin: 42px;
 width: 180px;
 height: 100px;
-font-size: 24px;
+font-size: 20px;
 padding: 10px;
 border-radius: 5px;
 text-align: center;

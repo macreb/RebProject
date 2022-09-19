@@ -23,7 +23,7 @@ const SavedResults = () => {
         <ResultWrapper>
         <Heading>Your last saved destination:</Heading>
         <ListResults>
-            <Row>Placeholder for last saved destination
+            <Row>Placeholder for previously saved destination
                 <ButtonDiv>
     <Button onClick={handleEdit}>
             Edit
@@ -35,7 +35,7 @@ const SavedResults = () => {
         </Row>
         </ListResults>
         </ResultWrapper>
-        <div>Note: server endpoints are set up (and functioning correctly) to edit or delete saved results - they're just not connecting to the fetches inside the component here yet 🐞</div>
+        <div>Note: server endpoints are set up (and functioning correctly) to get saved resuls, edit a specific result by ID, and delete a specific saved result by ID - work in progress to connect these to the component 🐞</div>
     </Wrapper>
 </>
     )

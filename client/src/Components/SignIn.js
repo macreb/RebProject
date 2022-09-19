@@ -14,6 +14,8 @@ const SignIn = () => {
         setIsLoggedIn } =
         useContext(QuizContext);
     
+        let history = useHistory();
+    
         const [userEmail, setUserEmail] = useState("");
         const [passwordInput, setPasswordInput] = useState("");
         const [inputType, setInputType] = useState("password");
@@ -46,13 +48,16 @@ const SignIn = () => {
                 
                 } else if (status === 200) {
                 
+                  const isLoggedIn = true;
+
                   console.log("status is 200")
+                  console.log("User logged in")
                 
                   // setIsLoggedIn(true);
                   // console.log(isLoggedIn);
                 
                   // setCurrentUser(json.data);
-                // navigate("/success");  //problem with navigation...
+                  history.push("/success");  
                 } 
             })
             .catch((err) => console.log(err));
