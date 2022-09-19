@@ -8,7 +8,7 @@ Server endpoints are set up to save the user's results to MongoDB if they wish (
 
 A user sign-up page is set up that connects to a backend POST handler that saves new users to MongoDB. 
 
-A user sign-in page is set up for existing users. This sends a POST to the server to check if the user exists, and if their passwords math, isLoggedIn is switched to TRUE.
+A user sign-in page is set up for existing users. This sends a POST to the server to check if the user exists, and if their passwords match, isLoggedIn is switched to TRUE.
 
 Additional functionality to be added, but all server endpoints and handlers are functioning properly (tested in insomnia) and API data is being retrieved successfully. 
 
