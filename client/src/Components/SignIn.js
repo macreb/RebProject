@@ -27,30 +27,34 @@ const SignIn = () => {
                 };
             
             const options = {
-            method: "POST",
-            body: JSON.stringify(userLogin),
-            headers: { 
-            Accept: "application/json",
-            "Content-Type": "application/json" 
+                method: "POST",
+                body: JSON.stringify(userLogin),
+                headers: { 
+                Accept: "application/json",
+                "Content-Type": "application/json" 
             },
             };
+
             fetch("/api/sign-in", options)
             .then((res) => res.json())
             .then((json) => {
                 const {status, error} = json;
+                
                 if (status >= 400) {
-                } else if(status === 200){
 
-                  //set user login state 
-                  // set current user data
-                  // navigate to the success page
-
-                setIsLoggedIn(true);
-                setCurrentUser(json.data);
+                  console.log("error is > 400")
+                
+                } else if (status === 200) {
+                
+                  console.log("status is 200")
+                
+                  // setIsLoggedIn(true);
+                  // console.log(isLoggedIn);
+                
+                  // setCurrentUser(json.data);
                 // navigate("/success");  //problem with navigation...
                 } 
             })
-              // Uncaught fetch errors
             .catch((err) => console.log(err));
             };
         
@@ -72,7 +76,6 @@ const SignIn = () => {
                     <Row>
                     <Label htmlFor="email">Email:</Label>
                     <Input
-                        autoFocus
                         type="email"
                         placeholder="Enter email address"
                         value={userEmail}
@@ -169,11 +172,3 @@ color: fuchsia;
 
 export default SignIn;
 
-{/* 
-<div>sign in</div>
-    // const [ destination, setDestination ] = useState("");
-
-    // const getDestination = () => {
-    //     fetch()
-    )
-}; */}

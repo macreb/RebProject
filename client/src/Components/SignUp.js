@@ -29,7 +29,7 @@ const SignUp = () => {
     // Pass the data from the form into an object that we can pass to the backend
     
     const newUserData = {
-      name: userFirstName,
+      givenName: userFirstName,
       email: userEmail,
       password: passwordInput,
     };
@@ -51,18 +51,23 @@ const SignUp = () => {
 
     console.log(newUserData);
   
-
   // const addUser = (e) => {
   //   e.preventDefault();
     fetch("/api/sign-up", options)
       .then((res) => res.json())
       .then((json) => {
-        const {status, message, error} = json;
+        const {status, error} = json;
         if (status >= 400) {
-          setErrorMsg(message);
+
+          console.log("error is > 400")
+
         } else if(status === 200){
-          setIsLoggedIn(true);
-          setCurrentUser(json.data);
+
+          console.log("status is 200")
+
+          // setIsLoggedIn(true);
+          // setCurrentUser(json.data);
+
           console.log("Account created, new user logged in")
         }
       })
