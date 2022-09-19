@@ -67,10 +67,13 @@ const QuizResult = () => {
         <>
         <Wrapper>
             <ResultWrapper>
-        <Result><p>Congratulations, you're going to <Destination>Random country from api - it only displays in console.log on the previous page though, so it's a mystery to you{destinationCountry}</Destination>!!!</p>
-        <p>(don't worry, some fake destination data is included to demonstrate that the fetch successfully saves to MongoDB)</p>
-    </Result>
-
+        <Result><p>Congratulations, you're going to <Destination>Placeholder-destination{destinationCountry}</Destination>!!!</p>
+        </Result>
+<div>
+    <br></br>
+<p>"Placeholder-destination" will be a random country from the api - it only displays in console.log on the previous page though, so it's a mystery to you for now unless you have console open :P</p>
+        <br></br><p>Because the random country from API is not coming through in the FE yet, some fake destination data is included to demonstrate that the fetch successfully saves to MongoDB</p>
+</div>
         <Button onClick={handleSave}>
                 Save result
             </Button>

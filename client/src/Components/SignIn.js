@@ -54,6 +54,7 @@ const SignIn = () => {
 
                   console.log("status is 200")
                   console.log("User logged in")
+                  window.alert("login successful")
                 
                   // setIsLoggedIn(true);
                   // console.log(isLoggedIn);
