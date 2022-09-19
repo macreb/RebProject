@@ -150,7 +150,7 @@ const patchSavedResult = async (req, res) => {
         client.close();
     };
 
-// CURRENTLY BROKEN
+// WORKING 
 // function to sign up a new user
 const handleSignup = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
@@ -158,6 +158,7 @@ const handleSignup = async (req, res) => {
     // let user = null;
 
     const newUserBody = req.body;
+    console.log(newUserBody);
     
     try {
         await client.connect();
@@ -217,26 +218,30 @@ const handleSignin = async (req, res) => {
     const db = client.db("finalProject")
     // let user = null;
     
-    const userCredentials = req.body; 
+    let loginAttempt = {
+        email: req.body.email,
+        password: req.body.password
+    };
+
     
     try {
         await client.connect();
-        const existingUser = await db.collection("users").findOne({ email: userCredentials.email });
+        const existingUser = await db.collection("users").findOne({ email: loginAttempt.email });
 
         if (existingUser) {
             // check password is correct
-            if (userCredentials.password === existingUser.password) {
+            if (loginAttempt.password === existingUser.password) {
                 console.log("logged in")
                 res.status(200).json({
                     status: 200,
-                    data: userCredentials.givenName,
+                    data: existingUser.givenName,
                     message: "You are now logged in",
             });
             } else {
                 console.log("incorrect password")
                 res.status(404).json({
                     status: 404,
-                    data: userCredentials.email,
+                    data: loginAttempt.email,
                     message: "Error: password is incorrect",
             });
             }
@@ -244,7 +249,7 @@ const handleSignin = async (req, res) => {
                 console.log("account not found")
                 res.status(404).json({
                     status: 404,
-                    data: userCredentials.email,
+                    data: loginAttempt.email,
                     message: "User account not found",
             });
             }

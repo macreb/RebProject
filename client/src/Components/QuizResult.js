@@ -63,6 +63,7 @@ const QuizResult = () => {
         <Button onClick={handleSave}>
                 Save result
             </Button>
+            <div>Note: only logged in users can save results. If a user tries to save and they are not logged in, they will be redirected to the /signin page.</div>
             </ResultWrapper>
     <Godspeed>Wishing you the best of luck with your future endeavors</Godspeed>
     </Wrapper>

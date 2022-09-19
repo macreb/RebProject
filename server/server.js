@@ -2,7 +2,9 @@
 
 const express = require("express");
 const morgan = require("morgan")
+const bp = require('body-parser')
 const app = express()
+
 
 const PORT = 8000
 
@@ -16,6 +18,8 @@ const {
 } = require("./handlers");
 
 express()
+    .use(bp.json())
+    .use(bp.urlencoded({extended:true}))
 
     // This will give us will log more info to the console. see https://www.npmjs.com/package/morgan
     .use(morgan("tiny"))
