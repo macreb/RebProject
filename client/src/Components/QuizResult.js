@@ -13,16 +13,26 @@ const QuizResult = () => {
     
     let history = useHistory();
 
+    console.log(destinationCountry)
+
     const placeholderResult = "Iran";
+    console.log("Placeholder result:")
+    console.log(placeholderResult)
 
     // const result = JSON.parse(sessionStorage.getItem("destination"));
     // console.log(result);
 
+    let isLoading=true;
+
+    setTimeout(() => {
+        isLoading=false;    
+    }, 2000);
+
     useEffect(() => {
-        if (placeholderResult) {
-            console.log(placeholderResult);
+        if (destinationCountry) {
+            console.log(destinationCountry);
             }
-        }, []);
+        }, [destinationCountry]);
         
     const handleSave = () => {
         console.log("Attempting to save result...")
@@ -66,9 +76,11 @@ const QuizResult = () => {
         
     return (
         <>
-        <Wrapper>
+        {
+            placeholderResult
+            ? (<><Wrapper>
             <ResultWrapper>
-        <Result><p>Congratulations, you're going to <Destination>Iran</Destination>!!!</p>
+        <Result><p>Congratulations, you're going to <Destination>{placeholderResult}</Destination>!!!</p>
         </Result>
         {isLoggedIn
         ? ( <><Button onClick={handleSave}>
@@ -79,7 +91,10 @@ const QuizResult = () => {
         
             </ResultWrapper>
     <Godspeed>Wishing you the best of luck with your future endeavors</Godspeed>
-    </Wrapper>
+    </Wrapper></>)
+            : <>Loading...</> 
+        }
+        
     </>
     )
 };

@@ -55,7 +55,9 @@
                     
                     setDestinationCountry(randomCountry.country);
 
-                    history.push("/result");
+                    setTimeout(() => {
+                        history.push("/result")
+                    }, 2000);
             };
         }, [fetchResult])
 

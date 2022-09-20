@@ -7,7 +7,7 @@ export const QuizProvider = ({ children }) => {
     const [givenName, setGivenName] = useState(""); 
     const [email, setEmail] = useState(""); 
     const [isLoggedIn, setIsLoggedIn] = useState(null); 
-    const [destinationCountry, setDestinationCountry] = useState([]); 
+    const [destinationCountry, setDestinationCountry] = useState(null); 
     const [ fetchResult, setFetchResult ] = useState(null); 
 
     
