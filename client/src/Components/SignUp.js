@@ -66,10 +66,11 @@ const SignUp = () => {
 
           console.log("status is 200")
 
-          // setIsLoggedIn(true);
+          setIsLoggedIn(true);
           // setCurrentUser(json.data);
 
           console.log("Account created, new user logged in")
+          window.alert("Account created, new user logged in")
         }
       })
       .catch((err) => console.log(err))

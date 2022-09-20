@@ -50,13 +50,13 @@ const SignIn = () => {
                 
                 } else if (status === 200) {
                 
-                  const isLoggedIn = true;
+                  // const isLoggedIn = true;
 
                   console.log("status is 200")
                   console.log("User logged in")
                   window.alert("login successful")
                 
-                  // setIsLoggedIn(true);
+                  setIsLoggedIn(true);
                   // console.log(isLoggedIn);
                 
                   // setCurrentUser(json.data);

@@ -2,12 +2,15 @@ import styled from "styled-components";
 import GlobalStyles from "./GlobalStyles";
 
 import { useContext, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, Link, NavLink } from "react-router-dom";
 import { QuizContext } from "./QuizContext";
+
 
 const resultArray = [];
 
 const SavedResults = () => {
+
+    const { isLoggedIn } = useContext(QuizContext);
 
 // GET previously saved results from MongoDB
     const showSaved = () => {;
@@ -102,8 +105,9 @@ const SavedResults = () => {
     <Wrapper>
         <ResultWrapper>
         <Heading>Your last saved destination:</Heading>
-        <ListResults>
-            <Row>Placeholder for previously saved destination
+        {isLoggedIn
+        ? ( <><ListResults>
+            <Row>Iran
                 <ButtonDiv>
     <Button onClick={handleEdit}>
             Edit
@@ -114,17 +118,20 @@ const SavedResults = () => {
         </ButtonDiv>
         </Row>
 
-        </ListResults>
+        </ListResults></>)
+        : (<><MustSign>You must be logged in to view saved results. </MustSign><Link to="/signin">User sign-in</Link></>)
+        }
+        
         </ResultWrapper>
-        <br></br>
-        <div>WIP - See console for output of GET for previously saved results</div>
-        <br></br>
-        <div>Note: server endpoints are set up (and functioning correctly in insomnia) to get saved resuls, edit a specific result by ID, and delete a specific saved result by ID - work in progress to connect these to the component 🐞</div>
+
     </Wrapper>
 </>
     )
 };
 
+const MustSign = styled.div`
+padding: 42px;
+`
 
 const Wrapper = styled.div`
 display: flex;
@@ -171,3 +178,9 @@ color: red;
 `
 
 export default SavedResults;
+
+
+// <br></br>
+//         <div>WIP - See console for output of GET for previously saved results</div>
+//         <br></br>
+//         <div>Note: server endpoints are set up (and functioning correctly in insomnia) to get saved resuls, edit a specific result by ID, and delete a specific saved result by ID - work in progress to connect these to the component 🐞</div>

@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import { NavLink, Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { QuizContext } from "./QuizContext";
+
 
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
@@ -9,6 +12,7 @@ import SignIn from "./SignIn";
 const Header = () => {
     
     // const quizResult = sessionStorage.getItem("result");
+    const { isLoggedIn } = useContext(QuizContext);
 
     return (
         <>
@@ -20,9 +24,11 @@ const Header = () => {
             <Subtitle>A one-click game for dreamers, escapist thinkers, and folks on the lam</Subtitle>
             
             <UserNav>
-            <Stack>
-                <UserLink to="/signin">User sign-in</UserLink>
-                {/* <UserLink to="/signup">Create account</UserLink> */}
+            <Stack>{
+                isLoggedIn
+                ? (<>Logged in</>)
+                :<><UserLink to="/signin">User sign-in</UserLink></>
+                }
                 </Stack>
             </UserNav>
         </Wrapper>

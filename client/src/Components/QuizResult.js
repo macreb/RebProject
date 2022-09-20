@@ -2,24 +2,25 @@ import styled from "styled-components";
 import GlobalStyles from "./GlobalStyles";
 
 import { useContext, useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link, NavLink } from "react-router-dom";
 import { QuizContext } from "./QuizContext";
 
 
 const QuizResult = () => {
     
     const { destinationCountry } = useContext(QuizContext); 
+    const { isLoggedIn } = useContext(QuizContext);
     
     let history = useHistory();
 
-    const fakeResult = "Fake Country for Testing Purposes";
+    const placeholderResult = "Iran";
 
     // const result = JSON.parse(sessionStorage.getItem("destination"));
     // console.log(result);
 
     useEffect(() => {
-        if (fakeResult) {
-            console.log(fakeResult);
+        if (placeholderResult) {
+            console.log(placeholderResult);
             }
         }, []);
         
@@ -30,7 +31,7 @@ const QuizResult = () => {
 
         const newResultData = {
             givenName: "Current user",
-            destinationCountry: fakeResult
+            destinationCountry: placeholderResult
         }
 
         const options = {
@@ -67,23 +68,25 @@ const QuizResult = () => {
         <>
         <Wrapper>
             <ResultWrapper>
-        <Result><p>Congratulations, you're going to <Destination>Placeholder-destination{destinationCountry}</Destination>!!!</p>
+        <Result><p>Congratulations, you're going to <Destination>Iran</Destination>!!!</p>
         </Result>
-<div>
-    <br></br>
-<p>"Placeholder-destination" will be a random country from the api - it only displays in console.log on the previous page though, so it's a mystery to you for now unless you have console open :P</p>
-        <br></br><p>Because the random country from API is not coming through in the FE yet, some fake destination data is included to demonstrate that the fetch successfully saves to MongoDB</p>
-</div>
-        <Button onClick={handleSave}>
-                Save result
-            </Button>
-            <div>Note: only logged in users can save results. If a user tries to save and they are not logged in, they will be redirected to the /signin page.</div>
+        {isLoggedIn
+        ? ( <><Button onClick={handleSave}>
+        Save result
+    </Button></>)
+        : (<><MustSign>You must be logged in to save results. </MustSign><Link to="/signin">User sign-in</Link></>)
+        }
+        
             </ResultWrapper>
     <Godspeed>Wishing you the best of luck with your future endeavors</Godspeed>
     </Wrapper>
     </>
     )
 };
+
+const MustSign = styled.div`
+padding: 42px;
+`
 
 const Wrapper = styled.div`
 display: flex;
@@ -148,3 +151,10 @@ export default QuizResult;
 
     // const getDestination = () => {
     //     fetch()
+
+
+//     <div>
+//     <br></br>
+// <p>"Placeholder-destination" will be a random country from the api - it only displays in console.log on the previous page though, so it's a mystery to you for now unless you have console open :P</p>
+//         <br></br><p>Because the random country from API is not coming through in the FE yet, some fake destination data is included to demonstrate that the fetch successfully saves to MongoDB</p>
+// </div>
